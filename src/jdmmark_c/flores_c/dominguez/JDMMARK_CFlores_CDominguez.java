@@ -73,10 +73,77 @@ public class JDMMARK_CFlores_CDominguez {
     
     public static Auto [] spawn_Autos(Auto almacen []){
         for (int i = 0; i < 10; i++) {
-            if(almacen[49].ge){
+            if(almacen[49].getModelo().isBlank()){
                 int start = i;
                 for (int j = 0; i < 49; i++) {
-                    Auto nuevoAuto = new Auto(nombre,apellido,edad,sexoBio,""+contador);
+                    int x = rand.nextInt(5);
+                    if(x == 0){
+                        String Marca = "Honda";
+                        String Modelo = "Civic";
+                        int Precio = rand.nextInt(1000000-100000+1)+100000;
+                        int HP = rand.nextInt(500-100+1)+100;
+                        int CaC = rand.nextInt(10-4+1)+4;
+                        int Vmax = rand.nextInt(200-150+1)+150;;
+                        String Paint = "Rojo";
+                        String Estado = "Usado";
+                        String Motor = "2jz";
+                        String Turbo = "No";
+                        String ECU = "Sin modificar";
+                        String Peso = rand.nextInt(2000-1000+1)+1000;
+                    }else if(x == 1){
+                        String Marca = "Honda";
+                        String Modelo = "Civic";
+                        int Precio = rand.nextInt(1000000-100000+1)+100000;
+                        int HP = rand.nextInt(500-100+1)+100;
+                        int CaC = rand.nextInt(10-4+1)+4;
+                        int Vmax = rand.nextInt(200-150+1)+150;;
+                        String Paint = "Rojo";
+                        String Estado = "Usado";
+                        String Motor = "2jz";
+                        String Turbo = "No";
+                        String ECU = "Sin modificar";
+                        String Peso = rand.nextInt(2000-1000+1)+1000;
+                    }else if(x == 2){
+                        String Marca = "Honda";
+                        String Modelo = "Civic";
+                        int Precio = rand.nextInt(1000000-100000+1)+100000;
+                        int HP = rand.nextInt(500-100+1)+100;
+                        int CaC = rand.nextInt(10-4+1)+4;
+                        int Vmax = rand.nextInt(200-150+1)+150;;
+                        String Paint = "Rojo";
+                        String Estado = "Usado";
+                        String Motor = "2jz";
+                        String Turbo = "No";
+                        String ECU = "Sin modificar";
+                        String Peso = rand.nextInt(2000-1000+1)+1000;
+                    }else if(x == 3){
+                        String Marca = "Honda";
+                        String Modelo = "Civic";
+                        int Precio = rand.nextInt(1000000-100000+1)+100000;
+                        int HP = rand.nextInt(500-100+1)+100;
+                        int CaC = rand.nextInt(10-4+1)+4;
+                        int Vmax = rand.nextInt(200-150+1)+150;;
+                        String Paint = "Rojo";
+                        String Estado = "Usado";
+                        String Motor = "2jz";
+                        String Turbo = "No";
+                        String ECU = "Sin modificar";
+                        String Peso = rand.nextInt(2000-1000+1)+1000;
+                    }else if(x == 4){
+                        String Marca = "Honda";
+                        String Modelo = "Civic";
+                        int Precio = rand.nextInt(1000000-100000+1)+100000;
+                        int HP = rand.nextInt(500-100+1)+100;
+                        int CaC = rand.nextInt(10-4+1)+4;
+                        int Vmax = rand.nextInt(200-150+1)+150;;
+                        String Paint = "Rojo";
+                        String Estado = "Usado";
+                        String Motor = "2jz";
+                        String Turbo = "No";
+                        String ECU = "Sin modificar";
+                        int Peso = rand.nextInt(2000-1000+1)+1000;
+                    }
+                    Auto nuevoAuto = new Auto(Marca,Modelo,Precio,HP,CaC,Vmax,col,Estado,Motor,Turbo,ECU,Peso);
                     almacen[i] = nuevoAuto;
                 }
             }
