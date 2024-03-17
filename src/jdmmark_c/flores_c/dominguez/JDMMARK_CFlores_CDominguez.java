@@ -2,36 +2,45 @@ package jdmmark_c.flores_c.dominguez;
 
 //Trabajo de Carlos Flores y Carlos Dominguez
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 import static jdmmark_c.flores_c.dominguez.Auto.Compra;
 import static jdmmark_c.flores_c.dominguez.Auto.Venta;
+import static jdmmark_c.flores_c.dominguez.Especificaciones.addall;
 
 public class JDMMARK_CFlores_CDominguez {
 
     static Random rand = new Random();
     static Scanner leer = new Scanner(System.in);
-
+    static ArrayList <String> car = new ArrayList();
+    static ArrayList <String> colores = new ArrayList();
+    static ArrayList <String> condiciones = new ArrayList();
+    static ArrayList <String> motores = new ArrayList();
+    static ArrayList <String> turbos = new ArrayList();
+    
+    
     public static void main(String[] args) {
+        addall(car,colores,motores,turbos);
         boolean var = true;
         int cash = 100000;
         Auto almacen [] = new Auto [50];//el limite del almacen son 50 autos
-        
+        for (int i = 0; i < 50; i++) {
+            almacen = spawn_Autos(almacen);
+        }
         Auto garage [] = new Auto [5];//el limite del almacen son 5 autos
         int x = rand.nextInt(5);
-        String Marca = "Honda";
-        String Modelo = "Civic";
+        String cars = car.get(0);
         int Precio = 150000;
         int HP = 205;
         int CaC = 7;
         int Vmax = 156;
         String Paint = "Rojo";
-        String Estado = "Usado";
         String Motor = "V-tec";
         String Turbo = "No";
         String ECU = "Sin modificar";
         int Peso = 1500;               
-        Auto nuevoAuto = new Auto(Marca,Modelo,Precio,HP,CaC,Vmax,Paint,Estado,Motor,Turbo,ECU,Peso);
+        Auto nuevoAuto = new Auto(cars,Precio,HP,CaC,Vmax,Paint,Motor,Turbo,ECU,Peso);
         almacen[0] = nuevoAuto;
         System.out.println("Binevenido/a JDM Market");
         System.out.println("Somos una distribuidora de autos Japoneses y a su misma vez los compramos");
@@ -87,92 +96,84 @@ public class JDMMARK_CFlores_CDominguez {
     }//fin main
     
     public static Auto [] spawn_Autos(Auto almacen []){
-        for (int i = 0; i < 10; i++) {
-            if(almacen[49].getModelo().isBlank()){
-                int start = i;
-                for (int j = 0; i < 49; i++) {
-                    int x = rand.nextInt(5);
-                    String Marca = "Honda";
-                    String Modelo = "Civic";
-                    int Precio = rand.nextInt(1000000-100000+1)+100000;
-                    int HP = rand.nextInt(500-100+1)+100;
-                    int CaC = rand.nextInt(10-4+1)+4;
-                    int Vmax = rand.nextInt(200-150+1)+150;;
-                    String Paint = "Rojo";
-                    String Estado = "Usado";
-                    String Motor = "2jz";
-                    String Turbo = "No";
-                    String ECU = "Sin modificar";
-                    int Peso = rand.nextInt(2000-1000+1)+1000;
-                    if(x == 0){
-                        Marca = "Honda";
-                        Modelo = "Civic";
-                        Precio = rand.nextInt(1000000-100000+1)+100000;
-                        HP = rand.nextInt(500-100+1)+100;
-                        CaC = rand.nextInt(10-4+1)+4;
-                        Vmax = rand.nextInt(200-150+1)+150;;
-                        Paint = "Rojo";
-                        Estado = "Usado";
-                        Motor = "2jz";
-                        Turbo = "No";
-                        ECU = "Sin modificar";
-                        Peso = rand.nextInt(2000-1000+1)+1000;
-                    }else if(x == 1){
-                        Marca = "Nissan";
-                        Modelo = "GTR";
-                        Precio = rand.nextInt(1000000-100000+1)+100000;
-                        HP = rand.nextInt(500-100+1)+100;
-                        CaC = rand.nextInt(10-4+1)+4;
-                        Vmax = rand.nextInt(200-150+1)+150;;
-                        Paint = "Rojo";
-                        Estado = "Usado";
-                        Motor = "2jz";
-                        Turbo = "No";
-                        ECU = "Sin modificar";
-                        Peso = rand.nextInt(2000-1000+1)+1000;
-                    }else if(x == 2){
-                        Marca = "Acura";
-                        Modelo = "NSX";
-                        Precio = rand.nextInt(1000000-100000+1)+100000;
-                        HP = rand.nextInt(500-100+1)+100;
-                        CaC = rand.nextInt(10-4+1)+4;
-                        Vmax = rand.nextInt(200-150+1)+150;;
-                        Paint = "Rojo";
-                        Estado = "Usado";
-                        Motor = "2jz";
-                        Turbo = "No";
-                        ECU = "Sin modificar";
-                        Peso = rand.nextInt(2000-1000+1)+1000;
-                    }else if(x == 3){
-                        Marca = "Mitsubishi";
-                        Modelo = "Lancer";
-                        Precio = rand.nextInt(1000000-100000+1)+100000;
-                        HP = rand.nextInt(500-100+1)+100;
-                        CaC = rand.nextInt(10-4+1)+4;
-                        Vmax = rand.nextInt(200-150+1)+150;;
-                        Paint = "Rojo";
-                        Estado = "Usado";
-                        Motor = "2jz";
-                        Turbo = "No";
-                        ECU = "Sin modificar";
-                        Peso = rand.nextInt(2000-1000+1)+1000;
-                    }else if(x == 4){
-                        Marca = "Toyota";
-                        Modelo = "Supre";
-                        Precio = rand.nextInt(1000000-100000+1)+100000;
-                        HP = rand.nextInt(500-100+1)+100;
-                        CaC = rand.nextInt(10-4+1)+4;
-                        Vmax = rand.nextInt(200-150+1)+150;;
-                        Paint = "Rojo";
-                        Estado = "Usado";
-                        Motor = "2jz";
-                        Turbo = "No";
-                        ECU = "Sin modificar";
-                        Peso = rand.nextInt(2000-1000+1)+1000;
-                    }
-                    Auto nuevoAuto = new Auto(Marca,Modelo,Precio,HP,CaC,Vmax,Paint,Estado,Motor,Turbo,ECU,Peso);
-                    almacen[i] = nuevoAuto;
+        for (int i = 0; i < 50; i++) {
+            if(almacen[i].getcars().isBlank()){
+                String carro = car.get(rand.nextInt(4));
+                String Paint = colores.get(rand.nextInt(6));
+                String Motor = motores.get(rand.nextInt(4));
+                String Turbo = turbos.get(rand.nextInt(2));
+                int x = rand.nextInt(2);
+                String ECU = "";
+                if(x == 1){
+                    ECU = "Original";
+                }else if (x == 0) {
+                    ECU = "Reconfigurada";
                 }
+                int HP = 0;
+                double CaC = 10;
+                int Vmax = 0;
+                int Peso = rand.nextInt(2000-1000+1)+1000;
+                int Precio = 0;
+                if(carro.contains("NISSAN")){
+                    Precio += 120000;
+                    HP += 276;
+                    CaC = CaC - 1.3;
+                    Vmax += 155;
+                }else if(carro.contains("MAZDA") || carro.contains("MITSUBISHI")){
+                    Precio += 90000;
+                    HP += 266;
+                    CaC = CaC - 1.1;
+                    Vmax += 142;
+                }else{
+                    Precio += 70000;
+                    HP += 236;
+                    CaC = CaC - 0.7;
+                    Vmax += 153;
+                }
+                if(Motor.contains("3")){
+                    Precio += 150000;
+                    HP += 136;
+                    CaC = CaC - 0.9;
+                    Vmax += 50;
+                }else if (Motor.contains("2")) {
+                    Precio += 100000;
+                    HP += 118;
+                    CaC = CaC - 0.7;
+                    Vmax += 39;
+                }else{
+                    Precio += 50000;
+                    HP += 93;
+                    CaC = CaC - 0.5;
+                    Vmax += 25;
+                }
+                if(ECU.contains("Original")){
+                    HP += 100;
+                    CaC = CaC - 0.4;
+                    Vmax += 0;
+                }else if (x == 0) {
+                    Precio += 52000;
+                    HP += 235;
+                    CaC = CaC - 1.6;
+                    Vmax += 54;
+                }
+                if(turbos.contains("Twin")){
+                    HP += 65;
+                    Precio += 22000;
+                    CaC = CaC - 1.9;
+                    Vmax += 60;
+                }else if (turbos.contains("geometria")) {
+                    HP += 49;
+                    Precio += 15000;
+                    CaC = CaC - 1.6;
+                    Vmax += 43;
+                }else{
+                    HP += 24;
+                    Precio += 7000;
+                    CaC = CaC - 1.0;
+                    Vmax += 19;
+                }
+                Auto nuevoAuto = new Auto(carro,Precio,HP,CaC,Vmax,Paint,Motor,Turbo,ECU,Peso);
+                almacen[i] = nuevoAuto;
             }
         }
         return almacen;

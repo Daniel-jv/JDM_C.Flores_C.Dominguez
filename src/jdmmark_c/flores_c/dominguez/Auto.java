@@ -11,28 +11,24 @@ public class Auto {
     static Scanner leer = new Scanner(System.in);
     static Random rand = new Random();//sera utilizado para seleccionar las partes de autos cuando veamos arraylists
     
-    public String Marca;
-    public String Modelo;
+    public String cars;
     public int Precio;//costo tanto de venta como compra
     public int HP;//Horsepower
     public double CaC;//de cero a cien
     public int Vmax;//velocidad maxima
     public String Paint;
-    public String Estado;//Condiciones del auto
     public String Motor;
     public String Turbo;
     public String ECU;
     public int Peso;
 
-    public Auto(String Marca, String Modelo, int Precio, int HP, double CaC, int Vmax, String Paint, String Estado, String Motor, String Turbo, String ECU, int Peso) {
-        this.Marca = Marca;
-        this.Modelo = Modelo;
+    public Auto(String cars, int Precio, int HP, double CaC, int Vmax, String Paint, String Motor, String Turbo, String ECU, int Peso) {
+        this.cars = cars;
         this.Precio = Precio;
         this.HP = HP;
         this.CaC = CaC;
         this.Vmax = Vmax;
         this.Paint = Paint;
-        this.Estado = Estado;
         this.Motor = Motor;
         this.Turbo = Turbo;
         this.ECU = ECU;
@@ -41,7 +37,6 @@ public class Auto {
 
     public static void Compra(Auto almacen []){
         System.out.println("Bien!!!\nEn ese caso en que estas interesado/a??");
-        System.out.println("1)Honda\n2)Nissan\n3)Acura\n4)Mitsubishi\n5)Toyota");
         int marc = leer.nextInt();
         Autos(almacen);
     }
@@ -50,26 +45,20 @@ public class Auto {
         System.out.println("OK\nQue tienes para ofrecer?");
         System.out.print("Ingrese un auto de su garage para vender:");
         int pos = leer.nextInt();
-        if(garage[pos].getModelo().isBlank()){
+        if(garage[pos].getcars().isBlank()){
             int x = pos - 1;
             System.out.println("Disculpa pero solo tienes "+x+" en tu garage");
+        }else{
+            
         }
     }
     
-    public String getMarca() {
-        return Marca;
+    public String getcars() {
+        return cars;
     }
 
-    public void setMarca(String Marca) {
-        this.Marca = Marca;
-    }
-
-    public String getModelo() {
-        return Modelo;
-    }
-
-    public void setModelo(String Modelo) {
-        this.Modelo = Modelo;
+    public void setcars(String cars) {
+        this.cars = cars;
     }
 
     public int getPrecio() {
@@ -110,14 +99,6 @@ public class Auto {
 
     public void setColor(String Color) {
         this.Paint = Color;
-    }
-
-    public String getEstado() {
-        return Estado;
-    }
-
-    public void setEstado(String Estado) {
-        this.Estado = Estado;
     }
 
     public String getMotor() {
