@@ -35,22 +35,65 @@ public class Auto {
         this.Peso = Peso;
     }
 
-    public static void Compra(Auto almacen []){
-        System.out.println("Bien!!!\nEn ese caso en que estas interesado/a??");
-        int marc = leer.nextInt();
-        Autos(almacen);
+    @Override
+    public String toString() {
+        return "Auto: " + cars + "\nPrecio: " + Precio + " $\nHP: " + HP + "\nCero a Cien: " + CaC + " segundos\nVelocidad maxima: " + Vmax + " km/h\nColor: " + Paint + "\nMotor: " + Motor + "\nTurbo: " + Turbo + "\nECU: " + ECU + "\nPeso: " + Peso + "kg";
     }
     
-    public static void Venta(Auto garage []){
-        System.out.println("OK\nQue tienes para ofrecer?");
-        System.out.print("Ingrese un auto de su garage para vender:");
-        int pos = leer.nextInt();
-        if(garage[pos].getcars().isBlank()){
-            int x = pos - 1;
-            System.out.println("Disculpa pero solo tienes "+x+" en tu garage");
-        }else{
-            
+
+    public static Auto []  Compra(Auto almacen [], Auto garage [], int cash){
+        int car = 0;
+        boolean buy = true;
+        while(car < 1 || car > 50){
+            System.out.print("Bien!!!\nIngrese una plaza para revisar en el almacen[1-50]:");
+            car = leer.nextInt()-1;
         }
+        System.out.print(almacen[car].getcars()+"\n"+almacen[car].getPrecio()+"\nNo te podemos dar mas informacion, deseas comprarlo?[S/N]: ");
+        char resp = leer.next().charAt(0);
+        if(cash < almacen[car].getPrecio()){
+            System.out.println("No tienes suficiente dinero");
+            buy = false;
+        }
+        if(resp == 'n' ||resp == 'N'){
+            System.out.println("Esta bien, pero tu te lo pierdes...");
+        }else if((resp == 's' ||resp == 'S') && buy == true){
+            System.out.println("Trato hecho");
+            Auto añadir = almacen[car];
+            for (int i = 0; i < garage.length; i++) {
+                if(garage[i].getcars().equals("")){
+                    garage[i] = añadir;
+                    break;
+                }
+            }
+            Auto quitar = new Auto("",0,0,0.0,0,"","","","",0);
+            almacen[car] = quitar;
+        }
+        return garage;
+    }
+    
+    public static Auto [] Venta(Auto garage []){
+        if(garage[1].getcars().isBlank()){
+            System.out.println("No puedes vender tu primer auto");
+        }else{
+            System.out.println("ATENCION!!!\nLos autos usados se venden por 100000$...");
+            System.out.println("OK\nQue tienes para ofrecer?");
+            System.out.print("Ingrese un auto de su garage para vender:");
+            int pos = leer.nextInt();
+            if(garage[pos].getcars().isBlank()){
+                int x = pos - 1;
+                System.out.println("Disculpa pero solo tienes "+x+" en tu garage");
+            }else{
+                pos = pos -1;
+                if(pos == 0){
+                    System.out.println("No puedes vender tu primer auto");
+                }else{
+                    Auto quitar = new Auto("",0,0,0.0,0,"","","","",0);
+                    garage[pos] = quitar;
+                    System.out.println("Despidete de el....");
+                }
+            }
+        }
+        return garage;
     }
     
     public String getcars() {

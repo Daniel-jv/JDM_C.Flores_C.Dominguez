@@ -5,6 +5,18 @@ import java.util.ArrayList;
 
 public class Especificaciones {
     
+    public static void listaautos(Auto lista []){
+        int plaza = 1;
+        for (int i = 0; i < lista.length; i++) {
+            if(lista[i].getcars().equals("")){
+            }else{
+                System.out.println("------------PLAZA "+plaza+"------------");
+                System.out.println(lista[i].toString());
+                plaza++;
+            }
+        }
+    }
+    
     public static void addall(ArrayList car, ArrayList colores, ArrayList motores, ArrayList turbos){
         car.add("NISSAN 350Z");
         car.add("MAZDA RX-7");

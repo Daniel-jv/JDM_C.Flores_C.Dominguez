@@ -8,6 +8,7 @@ import java.util.Random;
 import static jdmmark_c.flores_c.dominguez.Auto.Compra;
 import static jdmmark_c.flores_c.dominguez.Auto.Venta;
 import static jdmmark_c.flores_c.dominguez.Especificaciones.addall;
+import static jdmmark_c.flores_c.dominguez.Especificaciones.listaautos;
 
 public class JDMMARK_CFlores_CDominguez {
 
@@ -18,30 +19,22 @@ public class JDMMARK_CFlores_CDominguez {
     static ArrayList <String> condiciones = new ArrayList();
     static ArrayList <String> motores = new ArrayList();
     static ArrayList <String> turbos = new ArrayList();
+    static int cash = 100000;
     
     
     public static void main(String[] args) {
         addall(car,colores,motores,turbos);
         boolean var = true;
-        int cash = 100000;
-        Auto almacen [] = new Auto [50];//el limite del almacen son 50 autos
+        Auto almacen [] = new Auto [50];
         for (int i = 0; i < 50; i++) {
-            almacen = spawn_Autos(almacen);
+            espacio(almacen,i);
         }
+        almacen = spawn_Autos(almacen);
         Auto garage [] = new Auto [5];//el limite del almacen son 5 autos
-        int x = rand.nextInt(5);
-        String cars = car.get(0);
-        int Precio = 150000;
-        int HP = 205;
-        int CaC = 7;
-        int Vmax = 156;
-        String Paint = "Rojo";
-        String Motor = "V-tec";
-        String Turbo = "No";
-        String ECU = "Sin modificar";
-        int Peso = 1500;               
-        Auto nuevoAuto = new Auto(cars,Precio,HP,CaC,Vmax,Paint,Motor,Turbo,ECU,Peso);
-        almacen[0] = nuevoAuto;
+        garage = spawn_Garage(garage);
+        int seleccion = 0;
+        Auto autoprinc = garage[seleccion];
+        seleccion = 0;
         System.out.println("Binevenido/a JDM Market");
         System.out.println("Somos una distribuidora de autos Japoneses y a su misma vez los compramos");
         System.out.println("Tambien nos encargamos de modificarlos si es que usted lo desea.");
@@ -50,39 +43,123 @@ public class JDMMARK_CFlores_CDominguez {
             System.out.println("Que desea hacer?");
             System.out.println("1) Comprar un vehiculo");
             System.out.println("2) Vender su vehiculo");
-            System.out.println("3) Cambiar su vehiculo");//puede que consiga intercambiar su auto
-            System.out.println("3) Informacion de algun vehiculo");//se le brinda informacion de un auto de JDM Market
-            System.out.println("4) Informacion de su vehiculo");//podra ver los datos de su auto
-            System.out.println("5) Probar un vehiculo");//pudra provar autos de JDM Market
-            System.out.println("6) Probar su vehiculo");//podra correr con un auto de su propiedad y ganar otro auto
-            
+            System.out.println("3) Vehiculos en el garage");//se le brinda informacion de los vehiculos en su garage
+            System.out.println("4) Carreras nocturnas");
+            System.out.println("5) Seleccionar auto");
+            System.out.println("6) Mejorar auto");
+            System.out.println("7) Trabajar ;(");//se quedo sin fondos, hay que recuperarlos
+            System.out.println("8) Salir");
+            System.out.println("Dinero: "+cash+"$");
+            System.out.println("Auto principal: "+ autoprinc.getcars()+" "+autoprinc.getPaint());
+            System.out.print("Ingrese una opcion: ");
             int op = leer.nextInt();
+            System.out.println("\n");
             switch(op){
                 
                 case 1:{
-                    Compra(almacen);
+                    System.out.println("---Comprar un vehiculo");
+                    int check = 0;
+                    for (int i = 0; i < 5; i++) {
+                        if(!garage[i].getcars().isBlank()){
+                            check++;
+                        }
+                    }
+                    Compra(almacen,garage,cash);
+                    int length = 0;
+                    for (int i = 0; i < 5; i++) {
+                        if(!garage[i].getcars().isBlank()){
+                            length++;
+                        }
+                    }
+                    if(check +1 == length){
+                        cash = cash - garage[check].getPrecio();
+                    }
                     break;
                 }//fin case1
                 
                 case 2:{
+                    System.out.println("---Vender un vehiculo");
+                    int check = 0;
+                    for (int i = 0; i < 5; i++) {
+                        if(!garage[i].getcars().isBlank()){
+                            check++;
+                        }
+                    }
                     Venta(garage);
+                    int length = 0;
+                    for (int i = 0; i < 5; i++) {
+                        if(!garage[i].getcars().isBlank()){
+                            length++;
+                        }
+                    }
+                    if(check -1 == length){
+                        cash = cash + 100000;
+                    }
                     break;
                 }//fin case2
                 
                 case 3:{
-                    
+                    System.out.println("---Vehiculos en el garage");
+                    listaautos(garage);
                     break;
                 }//fin case3
                 
                 case 4:{
-                    
+                    System.out.println("---Carreras nocturnas");
+                    correr(autoprinc,almacen);
                     break;
                 }//fin case4
                 
                 case 5:{
-                    
+                    System.out.println("---Seleccionar auto");
+                    int plaza = 0;
+                    while(plaza < 1 || plaza > 5){
+                        System.out.print("Ingrese la plaza en el garage del auto que quiere usar: ");
+                        plaza = leer.nextInt();
+                    }
+                    plaza = plaza-1;
+                    if(garage[plaza] == garage[seleccion]){
+                        System.out.println("Ya estas usando ese auto...");
+                    }else if(garage[plaza].getcars().isBlank()){
+                        System.out.println("No tienes tantos autos...");
+                    }else{
+                        autoprinc = garage[plaza];
+                        seleccion = plaza;
+                    }
                     break;
-                }//fin case5
+                }//fin case 5
+                
+                case 6:{
+                    System.out.println("---Mejorar auto");
+                    System.out.println("El auto que mejoraras sera el principal, quieres seguir?[S/N]");
+                    char resp = leer.next().charAt(0);
+                    if(resp == 'n' || resp == 'N'){
+                        System.out.println("Okay, cuando quieras...");
+                    }else{
+                        System.out.println("Bienvenido/a de vuelta a JDM Market\nQue podemos hacer hoy por ti?");
+                        autoprinc = mejorar(autoprinc);
+                    }
+                    break;
+                }//fin case 6
+                
+                case 7:{
+                    System.out.println("---Trabajar...");
+                    System.out.println("Condeguiste un empleo temporal para ganar fondos...");
+                    int ganancia = 1;
+                    while(ganancia % 1000 != 0){
+                        ganancia = rand.nextInt(15000-1000+1)+1000;
+                    }
+                    cash += ganancia;
+                    System.out.println("Has ganado "+ganancia+"$ trabajando...");
+                    System.out.println("Recuerda, esta no es la mejor forma de ganar dinero...");
+                    break;
+                }//fin case 7
+                
+                case 8:{
+                    System.out.println("Ha salido del programa...");
+                    var = false;
+                    break;
+                }//fin case 8
                 
                 default:{
                     System.out.println("opcion no valida");
@@ -90,10 +167,119 @@ public class JDMMARK_CFlores_CDominguez {
                 }//fin default
                 
             }//fin switch
-            
+            System.out.println("\n");
+            almacen = spawn_Autos(almacen);
         }while (var);//fin so while
         
     }//fin main
+    
+    public static Auto mejorar(Auto auto){
+        char resp = 's';
+        while(resp == 'S' || resp == 's'){
+            System.out.println("1) Mejorar motor");
+            System.out.println("2) Mejorar turbo");
+            System.out.println("3) Reconfigurar computadora");
+            int op = 0;
+            while(op < 1 || op > 3){
+                System.out.print("Ingrese una opcion: ");
+                op = leer.nextInt();
+            }
+            switch (op) {
+                case 1:{
+                    System.out.println("Motor 3.8\nPrecio: 150000$");
+                    if(cash < 150000){
+                        System.out.println("No tienes suficiente dinero");
+                    }else if(cash > 150000 && !auto.getMotor().contains("3.8")){
+                        System.out.println("Compraste un mejor motor");
+                        cash = cash-150000;
+                        auto.setMotor("3.8");
+                        int nprice = auto.getPrecio() + 150000;
+                        auto.setPrecio(nprice);
+                        int nhp = auto.getHP() + 136;
+                        auto.setHP(nhp);
+                        double nCaC = auto.getCaC() - 0.9;
+                        auto.setCaC(nCaC);
+                        int nVmax = auto.getVmax()+ 50;
+                        auto.setVmax(nVmax);
+                    }else if(auto.getMotor().contains("3.8")){
+                        System.out.println("Ya tienes un 3.8");
+                    }
+                    break;
+                }
+                case 2:{
+                    System.out.println("Twin Turbo\nPrecio: 22000$");
+                    if(cash < 22000){
+                        System.out.println("No tienes suficiente dinero");
+                    }else if(cash > 22000 && !auto.getTurbo().contains("Twin")){
+                        System.out.println("Compraste un turbo");
+                        cash = cash-22000;
+                        auto.setTurbo("Twin Turbo");
+                        int nprice = auto.getPrecio() + 22000;
+                        auto.setPrecio(nprice);
+                        int nhp = auto.getHP() + 65;
+                        auto.setHP(nhp);
+                        double nCaC = auto.getCaC() - 1.9;
+                        auto.setCaC(nCaC);
+                        int nVmax = auto.getVmax() + 60;
+                        auto.setVmax(nVmax);
+                    }else if(auto.getTurbo().contains("Twin")){
+                        System.out.println("Ya tienes un twin turbo");
+                    }
+                    break;
+                }
+                case 3:{
+                    System.out.println("Ecu Reconfigurada\nPrecio: 52000$");
+                    if(cash < 52000){
+                        System.out.println("No tienes suficiente dinero");
+                    }else if(cash > 52000 && !auto.getECU().contains("Reconfigurada")){
+                        System.out.println("La computadora ha sido reconfigurada");
+                        cash = cash-52000;
+                        auto.setECU("Reconfigurada");
+                        int nprice = auto.getPrecio() + 52000;
+                        auto.setPrecio(nprice);
+                        int nhp = auto.getHP() + 235;
+                        auto.setHP(nhp);
+                        double nCaC = auto.getCaC() - 1.6;
+                        auto.setCaC(nCaC);
+                        int nVmax = auto.getVmax()+ 54;
+                        auto.setVmax(nVmax);
+                    }else if(auto.getECU().contains("Reconfigurada")){
+                        System.out.println("La computadora ya esta reconfigurada");
+                    }
+                    break;
+                }
+                default:{
+                    System.out.println("Opcion no valida");
+                }
+            }
+            System.out.println("Hay algo mas que quieras modificar?[S/N]");
+            resp = leer.next().charAt(0);
+            if(cash < 0){
+                cash = 0;
+            }
+        }
+        return auto;
+    }//fin mejorar
+    
+    public static Auto [] spawn_Garage(Auto garage []){
+        for (int i = 0; i < 5; i++) {
+            if(i > 0){
+                Auto nuevoAuto = new Auto("",0,0,0.0,0,"","","","",0);
+                garage[i] = nuevoAuto;
+            }else{
+                int Peso = rand.nextInt(2000-1000+1)+1000;
+                Auto nuevoAuto = new Auto("HONDA CIVIC TYPE R",127000,453,7.4,197,"ROJO","1.8","Turbo simple","Original",Peso);
+                garage[i] = nuevoAuto;
+            }
+        }
+        return garage;
+    }//fin Garage
+    
+    public static Auto [] espacio(Auto autos [], int i){
+        Auto añadir = new Auto("",0,0,0.0,0,"","","","",0);
+        autos[i] = añadir;
+        return autos;
+    }//fin espacio
     
     public static Auto [] spawn_Autos(Auto almacen []){
         for (int i = 0; i < 50; i++) {
@@ -177,13 +363,93 @@ public class JDMMARK_CFlores_CDominguez {
             }
         }
         return almacen;
-    }
+    }//fin spawn_Autos
     
     public static void Autos(Auto [] autos){
         System.out.println();
         for (int i = 0; i < autos.length; i++) {
-            System.out.println(i+1+ ")" + autos[i]);
+            if(!autos[i].getcars().equals("")){
+                System.out.println(i+1+ ")" + autos[i]);
+            }
         }
     }//fin Autos
+    
+    public static void correr(Auto auto, Auto almacen []){
+        System.out.println("Okay, veo que quieres ganar un dinerito extra...\nSi ganas te llevas 50000 $, pero si pierdes pagas 50000$\nPREPARATE");
+        System.out.println("Tu rival:");
+        int x = rand.nextInt(50);
+        Auto rival = almacen[x];
+        System.out.println("Auto: "+rival.getcars());
+        System.out.println("Motor: "+rival.getMotor());
+        System.out.println("Velocidad maxima: "+rival.getVmax());
+        System.out.println("HP: "+rival.getHP());
+        System.out.print("\nSolo te podemos decir eso, que dices puedes ganar?[S/N]: ");
+        char resp = leer.next().charAt(0);
+        if(resp == 's' || resp == 'S'){
+            System.out.println("Bien, te deseo suerte...");
+            int player1 = auto.getVmax() / 10;
+            int player2 = rival.getVmax() / 10;
+            int vel1 = auto.getVmax() / 20;
+            int vel2 = rival.getVmax() / 20;
+            while(player1 < 100 && player2 < 100){
+                if(player1>10){
+                    System.out.print("\nPlayer 1:"+player1+"%"+"   -");
+                    if(player1>20){
+                        System.out.print("-");
+                        if(player1>40){
+                            System.out.print("-");
+                            if(player1>60){
+                                System.out.print("-");
+                                if(player1>80){
+                                    System.out.print("-");
+                                    if(player1>100){
+                                        System.out.print("-");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if(player2>10){
+                    System.out.print("\nPlayer 2:"+player2+"%"+"   -");
+                    if(player2>20){
+                        System.out.print("-");
+                        if(player2>40){
+                            System.out.print("-");
+                            if(player2>60){
+                                System.out.print("-");
+                                if(player2>80){
+                                    System.out.print("-");
+                                    if(player2>100){
+                                        System.out.print("-");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                player1 += vel1;
+                player2 += vel2;
+                System.out.println("\nIngresa 1 para continuar");//visualizacion de carrera
+                if(player1-player2 > 15 && !rival.getTurbo().contains("simple")){
+                    player2 = player2 + 20;
+                }else if(player2-player1 > 15 && !auto.getTurbo().contains("simple")){
+                    player1 = player1 + 20;
+                }
+                int v  = leer.nextInt();
+            }
+            if(player1 > player2){
+                System.out.println("\nFelicidades, GANASTE!!!\nDeberia de volver a correr mas veces");
+                cash = cash + 50000;
+            }else if(player2 > player1){
+                System.out.println("\nMe lo esperaba...\nDeberias de mejorar tu auto...");
+                cash = cash - 50000;
+            }else if(player1 == player2){
+                System.out.println("WOOOW, un empate!!!\nNo ganas ni pierdes dinero");
+            }
+        }else{
+            System.out.println("En ese caso no se para que viniste.....");
+        }
+    }
     
 }//fin class JDMMARK_CFlores_CDominguez
